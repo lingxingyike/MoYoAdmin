@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.StudentDetailMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.StudentDetail">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="studentId" jdbcType="BIGINT" property="studentId" />
+    <result column="studentName" jdbcType="VARCHAR" property="studentName" />
+    <result column="identity" jdbcType="VARCHAR" property="identity" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="createBy" jdbcType="VARCHAR" property="createBy" />
+    <result column="updateBy" jdbcType="VARCHAR" property="updateBy" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, studentId, studentName, identity, address, sex, age, phone, createBy, updateBy,
+    createTime, updateTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from studentdetail
+    where studentId = #{studentId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from studentdetail
+    where studentId = #{studentId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.model.StudentDetail">
+    insert into studentdetail (id, studentId, studentName, 
+      identity, address, sex, 
+      age, phone, createBy,
+      updateBy, createTime, updateTime
+      )
+    values (#{id,jdbcType=BIGINT}, #{studentId,jdbcType=BIGINT}, #{studentName,jdbcType=VARCHAR},
+      #{identity,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{age,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR},
+      #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.model.StudentDetail">
+    insert into studentdetail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="studentId != null">
+        studentId,
+      </if>
+      <if test="studentName != null">
+        studentName,
+      </if>
+      <if test="identity != null">
+        identity,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="createBy != null">
+        createBy,
+      </if>
+      <if test="updateBy != null">
+        updateBy,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=BIGINT},
+      </if>
+      <if test="studentName != null">
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="identity != null">
+        #{identity,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.StudentDetail">
+    update studentdetail
+    <set>
+      <if test="studentId != null">
+        studentId = #{studentId,jdbcType=BIGINT},
+      </if>
+      <if test="studentName != null">
+        studentName = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="identity != null">
+        identity = #{identity,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        createBy = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        updateBy = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where studentId = #{studentId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.StudentDetail">
+    update studentdetail
+    set studentId = #{studentId,jdbcType=BIGINT},
+      studentName = #{studentName,jdbcType=VARCHAR},
+      identity = #{identity,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      age = #{age,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      createBy = #{createBy,jdbcType=VARCHAR},
+      updateBy = #{updateBy,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP}
+    where studentId = #{studentId,jdbcType=BIGINT}
+  </update>
+
+
+  <!--新增的-->
+
+  <sql id="selectStudentDetailVo">
+        select id, studentId,studentName,identity,address,sex,age,phone,createBy,updateBy,createTime,updateTime
+        from studentDetail
+    </sql>
+
+  <select id="selectStudentDetailList" parameterType="com.example.demo.model.StudentDetail" resultMap="BaseResultMap">
+    <include refid="selectStudentDetailVo"/>
+    <where>
+      <if test="studentId != null and studentId != ''">
+        AND studentId = #{studentId}
+      </if>
+      <if test="sex != null">
+        AND sex = #{sex}
+      </if>
+      <if test="age != null">
+        AND age = #{age}
+      </if>
+      <if test="phone != null and phone != ''">
+        AND phone like concat('%', #{phone}, '%')
+      </if>
+      <if test="studentName != null and studentName != ''">
+        AND studentName like concat('%', #{studentName}, '%')
+      </if>
+      <if test="identity != null and identity != ''">
+        AND identity like concat('%', #{identity}, '%')
+      </if>
+      <if test="address != null and address != ''">
+        AND address like concat('%', #{address}, '%')
+      </if>
+    </where>
+  </select>
+
+  <select id="selectStudentDetailAll" resultMap="BaseResultMap">
+    <include refid="selectStudentDetailVo"/>
+  </select>
+
+  <select id="selectStudentDetailById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <include refid="selectStudentDetailVo"/>
+    where studentId = #{studentId}
+  </select>
+
+  <select id="selectStudentDetailListById" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select id, studentId,studentName,identity,address,sex,age,phone,createBy,updateBy,createTime,updateTime
+        from studentDetail
+        where studentId = #{studentId}
+    </select>
+
+  <select id="selectStudentDetailByStudentName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select id, studentId,studentName,identity,address,sex,age,phone,createBy,updateBy,createTime,updateTime
+        from studentDetail
+        where studentName = #{studentName}
+    </select>
+
+  <select id="checkStudentDetailIdentityUnique" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectStudentDetailVo"/>
+    where identity=#{identity} limit 1
+  </select>
+
+  <update id="updateStudentDetail" parameterType="com.example.demo.model.StudentDetail">
+    update studentDetail
+    <set>
+      <if test="studentId != null and studentId != ''">studentId = #{studentId},</if>
+      <if test="studentName != null and studentName != ''">studentName = #{studentName},</if>
+      <if test="identity != null and identity != ''">identity = #{identity},</if>
+      <if test="address != null and address != ''">address = #{address},</if>
+      <if test="sex != null">sex = #{sex},</if>
+      <if test="age != null">age = #{age},</if>
+      <if test="phone != null">phone = #{phone},</if>
+      <if test="updateBy != null and updateBy != ''">updateBy = #{updateBy},</if>
+      updateTime = sysdate()
+    </set>
+    where studentId = #{studentId}
+  </update>
+
+  <insert id="insertStudentDetail" parameterType="com.example.demo.model.StudentDetail" useGeneratedKeys="true" keyProperty="id">
+    insert into studentDetail(
+    <if test="id != null and id != 0">id,</if>
+    <if test="studentId != null and studentId != ''">studentId,</if>
+    <if test="studentName != null and studentName != ''">studentName,</if>
+    <if test="identity != null and identity != ''">identity,</if>
+    <if test="address != null and address != ''">address,</if>
+    <if test="sex != null">sex,</if>
+    <if test="age != null">age,</if>
+    <if test="phone != null and phone != ''">phone,</if>
+    <if test="createBy != null and createBy != ''">createBy,</if>
+    createTime
+    )values(
+    <if test="id != null and id != 0">#{id},</if>
+    <if test="studentId != null and studentId != 0">#{studentId},</if>
+    <if test="studentName != null and studentName != ''">#{studentName},</if>
+    <if test="identity != null and identity != ''">#{identity},</if>
+    <if test="address != null and address != ''">#{address},</if>
+    <if test="sex != null">#{sex},</if>
+    <if test="age != null">#{age},</if>
+    <if test="phone != null and phone != ''">#{phone},</if>
+    <if test="createBy != null and createBy != ''">#{createBy},</if>
+    sysdate()
+    )
+  </insert>
+
+  <delete id="deleteStudentDetailById" parameterType="java.lang.Long">
+        delete from studentDetail where studentId = #{studentId}
+    </delete>
+
+  <delete id="deleteStudentDetailByIds" parameterType="java.lang.Long">
+    delete from studentDetail where studentId in
+    <foreach collection="array" item="studentId" open="(" separator="," close=")">
+      #{studentId}
+    </foreach>
+  </delete>
+
+  <!--新增的-->
+  <select id="countStudentDetailById" resultType="java.lang.Integer">
+        select count(1) from studentDetail where studentId=#{studentId}
+    </select>
+</mapper>

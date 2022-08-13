@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.SysJobMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.SysJob">
+    <id column="job_id" jdbcType="BIGINT" property="jobId" />
+    <id column="job_name" jdbcType="VARCHAR" property="jobName" />
+    <id column="job_group" jdbcType="VARCHAR" property="jobGroup" />
+    <result column="invoke_target" jdbcType="VARCHAR" property="invokeTarget" />
+    <result column="cron_expression" jdbcType="VARCHAR" property="cronExpression" />
+    <result column="misfire_policy" jdbcType="VARCHAR" property="misfirePolicy" />
+    <result column="concurrent" jdbcType="CHAR" property="concurrent" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    job_id, job_name, job_group, invoke_target, cron_expression, misfire_policy, concurrent, 
+    status, create_by, create_time, update_by, update_time, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.example.demo.model.SysJobKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_job
+    where job_id = #{jobId,jdbcType=BIGINT}
+      and job_name = #{jobName,jdbcType=VARCHAR}
+      and job_group = #{jobGroup,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.example.demo.model.SysJobKey">
+    delete from sys_job
+    where job_id = #{jobId,jdbcType=BIGINT}
+      and job_name = #{jobName,jdbcType=VARCHAR}
+      and job_group = #{jobGroup,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.model.SysJob">
+    insert into sys_job (job_id, job_name, job_group, 
+      invoke_target, cron_expression, misfire_policy, 
+      concurrent, status, create_by, 
+      create_time, update_by, update_time, 
+      remark)
+    values (#{jobId,jdbcType=BIGINT}, #{jobName,jdbcType=VARCHAR}, #{jobGroup,jdbcType=VARCHAR}, 
+      #{invokeTarget,jdbcType=VARCHAR}, #{cronExpression,jdbcType=VARCHAR}, #{misfirePolicy,jdbcType=VARCHAR}, 
+      #{concurrent,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.model.SysJob">
+    insert into sys_job
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jobId != null">
+        job_id,
+      </if>
+      <if test="jobName != null">
+        job_name,
+      </if>
+      <if test="jobGroup != null">
+        job_group,
+      </if>
+      <if test="invokeTarget != null">
+        invoke_target,
+      </if>
+      <if test="cronExpression != null">
+        cron_expression,
+      </if>
+      <if test="misfirePolicy != null">
+        misfire_policy,
+      </if>
+      <if test="concurrent != null">
+        concurrent,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jobId != null">
+        #{jobId,jdbcType=BIGINT},
+      </if>
+      <if test="jobName != null">
+        #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobGroup != null">
+        #{jobGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="invokeTarget != null">
+        #{invokeTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="cronExpression != null">
+        #{cronExpression,jdbcType=VARCHAR},
+      </if>
+      <if test="misfirePolicy != null">
+        #{misfirePolicy,jdbcType=VARCHAR},
+      </if>
+      <if test="concurrent != null">
+        #{concurrent,jdbcType=CHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.SysJob">
+    update sys_job
+    <set>
+      <if test="invokeTarget != null">
+        invoke_target = #{invokeTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="cronExpression != null">
+        cron_expression = #{cronExpression,jdbcType=VARCHAR},
+      </if>
+      <if test="misfirePolicy != null">
+        misfire_policy = #{misfirePolicy,jdbcType=VARCHAR},
+      </if>
+      <if test="concurrent != null">
+        concurrent = #{concurrent,jdbcType=CHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where job_id = #{jobId,jdbcType=BIGINT}
+      and job_name = #{jobName,jdbcType=VARCHAR}
+      and job_group = #{jobGroup,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.SysJob">
+    update sys_job
+    set invoke_target = #{invokeTarget,jdbcType=VARCHAR},
+      cron_expression = #{cronExpression,jdbcType=VARCHAR},
+      misfire_policy = #{misfirePolicy,jdbcType=VARCHAR},
+      concurrent = #{concurrent,jdbcType=CHAR},
+      status = #{status,jdbcType=CHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where job_id = #{jobId,jdbcType=BIGINT}
+      and job_name = #{jobName,jdbcType=VARCHAR}
+      and job_group = #{jobGroup,jdbcType=VARCHAR}
+  </update>
+  <!--新增的-->
+
+  <resultMap type="com.example.demo.model.SysJob" id="SysJobResult">
+    <id     property="jobId"          column="job_id"          />
+    <result property="jobName"        column="job_name"        />
+    <result property="jobGroup"       column="job_group"       />
+    <result property="invokeTarget"   column="invoke_target"   />
+    <result property="cronExpression" column="cron_expression" />
+    <result property="misfirePolicy"  column="misfire_policy"  />
+    <result property="concurrent"     column="concurrent"      />
+    <result property="status"         column="status"          />
+    <result property="createBy"       column="create_by"       />
+    <result property="createTime"     column="create_time"     />
+    <result property="updateBy"       column="update_by"       />
+    <result property="updateTime"     column="update_time"     />
+    <result property="remark"         column="remark"          />
+  </resultMap>
+
+  <sql id="selectJobVo">
+        select job_id, job_name, job_group, invoke_target, cron_expression, misfire_policy, concurrent, status, create_by, create_time, remark
+		from sys_job
+    </sql>
+
+  <select id="selectJobList" parameterType="com.example.demo.model.SysJob" resultMap="SysJobResult">
+    <include refid="selectJobVo"/>
+    <where>
+      <if test="jobName != null and jobName != ''">
+        AND job_name like concat('%', #{jobName}, '%')
+      </if>
+      <if test="jobGroup != null and jobGroup != ''">
+        AND job_group = #{jobGroup}
+      </if>
+      <if test="status != null and status != ''">
+        AND status = #{status}
+      </if>
+      <if test="invokeTarget != null and invokeTarget != ''">
+        AND invoke_target like concat('%', #{invokeTarget}, '%')
+      </if>
+    </where>
+  </select>
+
+  <select id="selectJobAll" resultMap="SysJobResult">
+    <include refid="selectJobVo"/>
+  </select>
+
+  <select id="selectJobById" parameterType="java.lang.Long" resultMap="SysJobResult">
+    <include refid="selectJobVo"/>
+    where job_id = #{jobId}
+  </select>
+
+  <delete id="deleteJobById" parameterType="java.lang.Long">
+ 		delete from sys_job where job_id = #{jobId}
+ 	</delete>
+
+  <delete id="deleteJobByIds" parameterType="java.lang.Long">
+    delete from sys_job where job_id in
+    <foreach collection="array" item="jobId" open="(" separator="," close=")">
+      #{jobId}
+    </foreach>
+  </delete>
+
+  <update id="updateJob" parameterType="com.example.demo.model.SysJob">
+    update sys_job
+    <set>
+      <if test="jobName != null and jobName != ''">job_name = #{jobName},</if>
+      <if test="jobGroup != null and jobGroup != ''">job_group = #{jobGroup},</if>
+      <if test="invokeTarget != null and invokeTarget != ''">invoke_target = #{invokeTarget},</if>
+      <if test="cronExpression != null and cronExpression != ''">cron_expression = #{cronExpression},</if>
+      <if test="misfirePolicy != null and misfirePolicy != ''">misfire_policy = #{misfirePolicy},</if>
+      <if test="concurrent != null and concurrent != ''">concurrent = #{concurrent},</if>
+      <if test="status !=null">status = #{status},</if>
+      <if test="remark != null and remark != ''">remark = #{remark},</if>
+      <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+      update_time = sysdate()
+    </set>
+    where job_id = #{jobId}
+  </update>
+
+  <insert id="insertJob" parameterType="com.example.demo.model.SysJob" useGeneratedKeys="true" keyProperty="jobId">
+    insert into sys_job(
+    <if test="jobId != null and jobId != 0">job_id,</if>
+    <if test="jobName != null and jobName != ''">job_name,</if>
+    <if test="jobGroup != null and jobGroup != ''">job_group,</if>
+    <if test="invokeTarget != null and invokeTarget != ''">invoke_target,</if>
+    <if test="cronExpression != null and cronExpression != ''">cron_expression,</if>
+    <if test="misfirePolicy != null and misfirePolicy != ''">misfire_policy,</if>
+    <if test="concurrent != null and concurrent != ''">concurrent,</if>
+    <if test="status != null and status != ''">status,</if>
+    <if test="remark != null and remark != ''">remark,</if>
+    <if test="createBy != null and createBy != ''">create_by,</if>
+    create_time
+    )values(
+    <if test="jobId != null and jobId != 0">#{jobId},</if>
+    <if test="jobName != null and jobName != ''">#{jobName},</if>
+    <if test="jobGroup != null and jobGroup != ''">#{jobGroup},</if>
+    <if test="invokeTarget != null and invokeTarget != ''">#{invokeTarget},</if>
+    <if test="cronExpression != null and cronExpression != ''">#{cronExpression},</if>
+    <if test="misfirePolicy != null and misfirePolicy != ''">#{misfirePolicy},</if>
+    <if test="concurrent != null and concurrent != ''">#{concurrent},</if>
+    <if test="status != null and status != ''">#{status},</if>
+    <if test="remark != null and remark != ''">#{remark},</if>
+    <if test="createBy != null and createBy != ''">#{createBy},</if>
+    sysdate()
+    )
+  </insert>
+</mapper>

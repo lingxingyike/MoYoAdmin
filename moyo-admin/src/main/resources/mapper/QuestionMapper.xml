@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.QuestionMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.Question">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="license" jdbcType="INTEGER" property="license" />
+    <result column="picUrl" jdbcType="VARCHAR" property="picurl" />
+    <result column="createBy" jdbcType="VARCHAR" property="createBy" />
+    <result column="updateBy" jdbcType="VARCHAR" property="updateBy" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.demo.model.Question">
+    <result column="topic" jdbcType="LONGVARCHAR" property="topic" />
+  </resultMap>
+
+  <resultMap id="QuestionOptionsResultMap" type="com.example.demo.model.ms.QuestionOptions">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="license" jdbcType="INTEGER" property="license" />
+    <result column="topic" jdbcType="LONGVARCHAR" property="topic" />
+    <result column="picUrl" jdbcType="VARCHAR" property="picurl" />
+    <result column="createBy" jdbcType="VARCHAR" property="createBy" />
+    <result column="updateBy" jdbcType="VARCHAR" property="updateBy" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+    <collection property="optionslist" ofType="com.example.demo.model.Options">
+      <id column="optionId" jdbcType="BIGINT" property="id" />
+      <result column="questionId" jdbcType="BIGINT" property="questionId" />
+      <result column="content" jdbcType="VARCHAR" property="content" />
+      <result column="isAnswer" jdbcType="INTEGER" property="isAnswer" />
+      <result column="sequence" jdbcType="INTEGER" property="sequence" />
+    </collection>
+  </resultMap>
+
+
+  <sql id="Base_Column_List">
+    id, type, level, license,topic, picUrl, createBy, updateBy, createTime, updateTime
+  </sql>
+  <sql id="Blob_Column_List">
+    topic
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from question
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from question
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.model.Question">
+    insert into question (id, type, level,
+      question, picUrl, createBy,
+      updateBy, createTime, updateTime,
+      topic)
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{level,jdbcType=INTEGER},
+      #{question,jdbcType=INTEGER}, #{picurl,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR},
+      #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+      #{topic,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.model.Question">
+    insert into question
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="question != null">
+        question,
+      </if>
+      <if test="picurl != null">
+        picUrl,
+      </if>
+      <if test="createBy != null">
+        createBy,
+      </if>
+      <if test="updateBy != null">
+        updateBy,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="topic != null">
+        topic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="question != null">
+        #{question,jdbcType=INTEGER},
+      </if>
+      <if test="picurl != null">
+        #{picurl,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topic != null">
+        #{topic,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.Question">
+    update question
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="question != null">
+        question = #{question,jdbcType=INTEGER},
+      </if>
+      <if test="picurl != null">
+        picUrl = #{picurl,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        createBy = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        updateBy = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topic != null">
+        topic = #{topic,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.demo.model.Question">
+    update question
+    set type = #{type,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      question = #{question,jdbcType=INTEGER},
+      picUrl = #{picurl,jdbcType=VARCHAR},
+      createBy = #{createBy,jdbcType=VARCHAR},
+      updateBy = #{updateBy,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      topic = #{topic,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.Question">
+    update question
+    set type = #{type,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      question = #{question,jdbcType=INTEGER},
+      picUrl = #{picurl,jdbcType=VARCHAR},
+      createBy = #{createBy,jdbcType=VARCHAR},
+      updateBy = #{updateBy,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!--新增的-->
+
+  <sql id="selectQuestionVo">
+        select id, type,level,license,topic,picUrl,createBy,updateBy,createTime,updateTime
+        from question
+    </sql>
+
+  <select id="selectQuestionList" parameterType="com.example.demo.model.Question" resultMap="BaseResultMap">
+    <include refid="selectQuestionVo"/>
+    <where>
+      <if test="type != null and type != ''">
+        AND type = #{type}
+      </if>
+      <if test="level != null and level != ''">
+        AND level = #{level}
+      </if>
+      <if test="license != null and license != ''">
+        AND license = #{license}
+      </if>
+      <if test="topic != null and topic != ''">
+        AND topic like concat('%', #{topic}, '%')
+      </if>
+    </where>
+  </select>
+
+
+  <select id="selectQuestionOptionsList" parameterType="com.example.demo.model.Question" resultMap="QuestionOptionsResultMap">
+        select q.*,
+    o.id as optionId,
+    o.questionId,
+    o.sequence,
+    o.isAnswer as isAnswer,
+    o.content
+    from question q
+    left join options o
+    on o.questionId=q.id
+    <where>
+      <if test="type != null and type != ''">
+        AND q.type = #{type}
+      </if>
+      <if test="level != null and level != ''">
+        AND q.level = #{level}
+      </if>
+      <if test="license != null and license != ''">
+        AND q.license = #{license}
+      </if>
+      <if test="topic != null and topic != ''">
+        AND q.topic like concat('%', #{topic}, '%')
+      </if>
+    </where>
+    order by q.id,o.sequence
+  </select>
+
+  <select id="selectQuestionAll" resultMap="BaseResultMap">
+    <include refid="selectQuestionVo"/>
+  </select>
+
+  <select id="selectQuestionById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <include refid="selectQuestionVo"/>
+    where id = #{id}
+  </select>
+
+  <select id="selectQuestionListById" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select id
+        from question
+        where id = #{id}
+    </select>
+
+  <select id="selectQuestionsByTopicName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select id, type,level,license,topic,picUrl,createBy,updateBy,createTime,updateTime
+        from question
+        where topic = #{topic}
+    </select>
+
+  <select id="checkQuestionTopicUnique" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <include refid="selectQuestionVo"/>
+    where topic=#{topic} limit 1
+  </select>
+
+  <update id="updateQuestion" parameterType="com.example.demo.model.Question">
+    update question
+    <set>
+      <if test="type != null and type != ''">type = #{type},</if>
+      <if test="level != null and level != ''">level = #{level},</if>
+      <if test="license != null and license != ''">license = #{license},</if>
+      <if test="topic != null and topic != ''">topic = #{topic},</if>
+      <if test="updateBy != null and updateBy != ''">updateBy = #{updateBy},</if>
+      updateTime = sysdate()
+    </set>
+    where id = #{id}
+  </update>
+
+  <insert id="insertQuestion" parameterType="com.example.demo.model.Question" useGeneratedKeys="true" keyProperty="id">
+    insert into question(
+    <if test="id != null and id != 0">id,</if>
+    <if test="type != null and type != ''">type,</if>
+    <if test="level != null and level != ''">level,</if>
+    <if test="license != null and license != ''">license,</if>
+    <if test="topic != null and topic != ''">topic,</if>
+    <if test="createBy != null and createBy != ''">createBy,</if>
+    createTime
+    )values(
+    <if test="id != null and id != 0">#{id},</if>
+    <if test="type != null and type != ''">#{type},</if>
+    <if test="level != null and level != ''">#{level},</if>
+    <if test="license != null and license != ''">#{license},</if>
+    <if test="topic != null and topic != ''">#{topic},</if>
+    <if test="createBy != null and createBy != ''">#{createBy},</if>
+    sysdate()
+    )
+  </insert>
+
+  <delete id="deleteQuestionById" parameterType="java.lang.Long">
+        delete from question where id = #{id}
+    </delete>
+
+  <delete id="deleteQuestionByIds" parameterType="java.lang.Long">
+    delete from question where id in
+    <foreach collection="array" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+
+
+  <select id="countQuestionByTypeId" resultType="java.lang.Integer">
+        select count(1) from question where type=#{type}
+    </select>
+
+  <select id="countQuestionByLevelId" resultType="java.lang.Integer">
+        select count(1) from question where level=#{level}
+    </select>
+
+  <select id="countQuestionByLicenseId" resultType="java.lang.Integer">
+        select count(1) from question where license=#{license}
+    </select>
+</mapper>
